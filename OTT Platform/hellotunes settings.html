@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OTT Platform - Hello Tunes</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#070b18;--panel:rgba(255,255,255,.06);--line:rgba(255,255,255,.1);--text:#eef2ff;--muted:#a5b4fc;--accent:#8b5cf6;--accent2:#06b6d4;--good:#22c55e;--warn:#f59e0b;--shadow:0 18px 60px rgba(0,0,0,.35)}
+*{box-sizing:border-box} body{margin:0;font-family:'Inter',sans-serif;background:radial-gradient(circle at top,#1e1b4b 0,#070b18 45%,#020617 100%);color:var(--text);min-height:100vh}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1220px;margin:auto;padding:22px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 20px;background:var(--panel);border:1px solid var(--line);border-radius:20px;backdrop-filter:blur(18px)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.search{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.search input,.search select{padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:#0b1220;color:#fff;min-width:220px}.btn{padding:12px 16px;border:none;border-radius:14px;cursor:pointer;font-weight:700;display:inline-flex;align-items:center;gap:8px}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:20px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:24px;backdrop-filter:blur(18px);box-shadow:var(--shadow)}
+.hero-left{padding:26px;background:linear-gradient(135deg,rgba(139,92,246,.28),rgba(6,182,212,.16)),var(--panel)}
+.hero-left h1{margin:0;font-size:clamp(2rem,4vw,4rem);line-height:.95}.hero-left p{color:var(--muted);line-height:1.8;max-width:650px}.tagrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.tag{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);font-size:.9rem}
+.hero-right{padding:18px;display:grid;gap:12px}.phone{padding:18px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid var(--line)}.phone input{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:#0b1220;color:#fff;font-size:1rem}.small{font-size:.9rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:20px}.card{grid-column:span 4;padding:18px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid var(--line);box-shadow:var(--shadow)}
+.card h3{margin:0 0 8px}.card p{margin:0;color:var(--muted);line-height:1.6}.meta{display:flex;justify-content:space-between;align-items:center;margin-top:14px}.pill{padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-size:.85rem}
+.banner{grid-column:span 12;padding:20px;border-radius:24px;background:linear-gradient(135deg,rgba(34,197,94,.16),rgba(139,92,246,.18));border:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.banner strong{font-size:1.15rem}.list{display:grid;gap:12px;margin-top:12px}.item{padding:14px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}.item .left{display:flex;align-items:center;gap:12px}.icon{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+#result{margin-top:12px;color:#fff;font-weight:700}.footer{margin:20px 0 8px;color:var(--muted);text-align:center}
+@media (max-width:980px){.hero{grid-template-columns:1fr}.card{grid-column:span 12}.top{flex-direction:column;align-items:stretch}.search input,.search select{min-width:0;flex:1}.search{width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo"><i class="fa-solid fa-play"></i></div><div>OTT Tunes Hub</div></div>
+    <div class="search">
+      <input id="searchInput" placeholder="Search music type or show..." />
+      <select id="musicType">
+        <option>All Types</option><option>Romantic</option><option>Devotional</option><option>Dance</option><option>Classical</option><option>Mass</option>
+      </select>
+      <button class="btn primary" onclick="searchContent()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="panel hero-left">
+      <div class="tagrow">
+        <span class="tag"><i class="fa-solid fa-tv"></i> OTT Platform</span>
+        <span class="tag"><i class="fa-solid fa-music"></i> Hello Tunes</span>
+        <span class="tag"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Number</span>
+      </div>
+      <h1>Online set Hello Tunes by music type for mobile numbers.</h1>
+      <p>Build a music-based OTT interface where users can choose a song style, enter their mobile number, and activate a hello tune instantly. This template includes cards for music categories, subscription details, and a simple JavaScript demo for selection.</p>
+      <div class="tagrow">
+        <span class="tag">Hindi</span><span class="tag">Telugu</span><span class="tag">Tamil</span><span class="tag">English</span><span class="tag">Instrumental</span>
+      </div>
+    </div>
+    <div class="panel hero-right">
+      <div class="phone">
+        <div class="small">Mobile Number</div>
+        <input id="mobile" maxlength="10" placeholder="Enter 10-digit number" />
+      </div>
+      <div class="phone">
+        <div class="small">Choose Music Type</div>
+        <select id="tuneType" style="width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:#0b1220;color:#fff">
+          <option>Romantic</option><option>Devotional</option><option>Dance</option><option>Classical</option><option>Mass</option>
+        </select>
+      </div>
+      <button class="btn primary" onclick="setTune()"><i class="fa-solid fa-signal"></i> Set Hello Tune</button>
+      <button class="btn ghost" onclick="playPreview()"><i class="fa-solid fa-circle-play"></i> Preview</button>
+      <div id="result"></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="banner">
+      <div><strong><i class="fa-solid fa-bolt"></i> Quick Setup</strong><div class="small">Select music type, enter mobile number, and activate tune.</div></div>
+      <div class="pill">24/7 Online</div>
+    </div>
+
+    <div class="card">
+      <h3><i class="fa-solid fa-heart"></i> Romantic</h3>
+      <p>Soft and emotional hello tunes for personal caller identity.</p>
+      <div class="meta"><span class="pill">Best for love songs</span><i class="fa-solid fa-headphones"></i></div>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-place-of-worship"></i> Devotional</h3>
+      <p>Spiritual and devotional tunes for a calm caller experience.</p>
+      <div class="meta"><span class="pill">Peaceful vibe</span><i class="fa-solid fa-star-of-david"></i></div>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-compact-disc"></i> Dance / Mass</h3>
+      <p>High-energy tracks for an exciting and trendy ringtone feel.</p>
+      <div class="meta"><span class="pill">Trending hits</span><i class="fa-solid fa-music"></i></div>
+    </div>
+
+    <div class="card" style="grid-column:span 6">
+      <h3><i class="fa-solid fa-list"></i> Top Music Types</h3>
+      <div class="list" id="musicList">
+        <div class="item"><div class="left"><div class="icon"><i class="fa-solid fa-heart"></i></div><div><strong>Romantic Mix</strong><div class="small">Popular love song tunes</div></div></div><span class="pill">Set now</span></div>
+        <div class="item"><div class="left"><div class="icon"><i class="fa-solid fa-bell"></i></div><div><strong>Devotional Pack</strong><div class="small">Aarti and bhakti tones</div></div></div><span class="pill">Set now</span></div>
+        <div class="item"><div class="left"><div class="icon"><i class="fa-solid fa-fire"></i></div><div><strong>Mass Entry</strong><div class="small">Action and hero beats</div></div></div><span class="pill">Set now</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="grid-column:span 6">
+      <h3><i class="fa-solid fa-mobile-button"></i> Subscription Panel</h3>
+      <p>Manage hello tune activation using a verified mobile number and selected music type.</p>
+      <div class="list" style="margin-top:14px">
+        <div class="item"><div class="left"><i class="fa-solid fa-check-circle" style="color:#22c55e"></i><div><strong>Active Plan</strong><div class="small">Unlimited tune changes</div></div></div><span class="pill">Monthly</span></div>
+        <div class="item"><div class="left"><i class="fa-solid fa-clock" style="color:#f59e0b"></i><div><strong>Trial Period</strong><div class="small">3 days demo access</div></div></div><span class="pill">Free</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="footer">OTT Hello Tunes UI template with music-type based selection</div>
+</div>
+<script>
+function validMobile(m){return /^\d{10}$/.test(m)}
+function setTune(){const m=document.getElementById('mobile').value.trim();const t=document.getElementById('tuneType').value;const r=document.getElementById('result');if(!validMobile(m)){r.textContent='Enter a valid 10-digit mobile number.';r.style.color='#fca5a5';return}r.textContent=`Hello Tune set for ${m} with ${t} music type.`;r.style.color='#bbf7d0'}
+function playPreview(){const t=document.getElementById('tuneType').value;document.getElementById('result').textContent=`Previewing ${t} tune...`;document.getElementById('result').style.color='#bfdbfe'}
+function searchContent(){const q=document.getElementById('searchInput').value.toLowerCase();const type=document.getElementById('musicType').value.toLowerCase();document.getElementById('result').textContent=`Search: ${q || 'all content'} | Type: ${type}`;document.getElementById('result').style.color='#fde68a'}
+</script>
+</body>
+</html>

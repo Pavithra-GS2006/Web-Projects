@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LLMs Portal College Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#0f172a;--panel:#111827;--panel2:#1f2937;--line:rgba(255,255,255,.08);--text:#e5e7eb;--muted:#9ca3af;--accent:#6366f1;--accent2:#22c55e;--warn:#f59e0b;--danger:#ef4444;--shadow:0 18px 50px rgba(0,0,0,.35)}
+*{box-sizing:border-box} body{margin:0;font-family:'Inter',sans-serif;background:linear-gradient(135deg,#020617,#111827 45%,#0b1220);color:var(--text);min-height:100vh}
+a{text-decoration:none;color:inherit} button,input,select{font:inherit}
+.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+.sidebar{background:rgba(255,255,255,.04);border-right:1px solid var(--line);padding:22px;backdrop-filter:blur(18px)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.05rem}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#8b5cf6)}
+.nav{display:grid;gap:10px;margin-top:24px}.nav a,.nav button{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:transparent;border:1px solid transparent;color:var(--muted);cursor:pointer;text-align:left;width:100%}.nav a:hover,.nav button:hover,.nav .active{background:rgba(255,255,255,.06);color:#fff;border-color:var(--line)}
+.main{padding:24px;display:grid;gap:18px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;background:rgba(255,255,255,.04);border:1px solid var(--line);backdrop-filter:blur(18px);border-radius:20px;padding:18px 20px;box-shadow:var(--shadow)}
+.top h1{margin:0;font-size:1.5rem}.top p{margin:6px 0 0;color:var(--muted)}
+.badge{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);display:inline-flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}.card{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+.stat{grid-column:span 3}.stat h3{margin:0 0 8px}.stat p{margin:0;color:var(--muted)}
+.section{grid-column:span 8}.side{grid-column:span 4}.course-list,.enroll-list,.att-list{display:grid;gap:12px;margin-top:12px}.item{padding:14px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.item i{color:#c7d2fe}.item small{color:var(--muted)}
+.controls{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}.controls input,.controls select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:#0b1220;color:#fff}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.btn{padding:11px 14px;border:none;border-radius:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px}.primary{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff}.success{background:linear-gradient(135deg,var(--accent2),#16a34a);color:#fff}.dark{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap}.tab{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);cursor:pointer;color:var(--muted)}.tab.active{color:#fff;background:linear-gradient(135deg,var(--accent),#8b5cf6)}
+.panel{display:none}.panel.active{display:block}
+.table{width:100%;border-collapse:collapse;margin-top:12px}.table th,.table td{padding:12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}.table th{color:#fff;background:rgba(255,255,255,.05)}
+@media (max-width:980px){.app{grid-template-columns:1fr}.sidebar{border-right:none;border-bottom:1px solid var(--line)}.grid{grid-template-columns:1fr}.stat,.section,.side{grid-column:span 1}.controls{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo"><i class="fa-solid fa-graduation-cap"></i></div><div>LLMs Portal Hub</div></div>
+    <div class="nav">
+      <a class="active" href="#dashboard"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <button onclick="setRole('admin')"><i class="fa-solid fa-user-shield"></i> Admin Sign In</button>
+      <button onclick="setRole('student')"><i class="fa-solid fa-user-graduate"></i> Student Sign In</button>
+      <button onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+    <div class="card" style="margin-top:18px">
+      <div class="badge"><i class="fa-solid fa-circle-info"></i> Role: <span id="roleLabel">Guest</span></div>
+      <p style="color:var(--muted);line-height:1.7;margin-top:12px">College hub for student enrollment, course details, attendance tracking, and dashboard access.</p>
+    </div>
+  </aside>
+
+  <main class="main" id="dashboard">
+    <div class="top">
+      <div>
+        <h1>College Portal Dashboard</h1>
+        <p>Login flow for admin and student with course management and attendance features.</p>
+      </div>
+      <div class="badge"><i class="fa-solid fa-circle-dot"></i> Live Portal</div>
+    </div>
+
+    <div class="grid">
+      <div class="card stat"><h3><i class="fa-solid fa-users"></i> 248</h3><p>Registered Students</p></div>
+      <div class="card stat"><h3><i class="fa-solid fa-book"></i> 12</h3><p>Active Courses</p></div>
+      <div class="card stat"><h3><i class="fa-solid fa-clipboard-check"></i> 94%</h3><p>Attendance Rate</p></div>
+      <div class="card stat"><h3><i class="fa-solid fa-user-tie"></i> 4</h3><p>Admin Staff</p></div>
+
+      <div class="card section">
+        <div class="tabs">
+          <div class="tab active" onclick="showPanel('courses', this)">Course Details</div>
+          <div class="tab" onclick="showPanel('enroll', this)">Student Enrollment</div>
+          <div class="tab" onclick="showPanel('attendance', this)">Attendance Pole</div>
+        </div>
+
+        <div id="courses" class="panel active">
+          <div class="course-list">
+            <div class="item"><div><strong><i class="fa-solid fa-code"></i> Web Development</strong><br><small>HTML, CSS, JavaScript basics and projects.</small></div><span class="badge">Sem 1</span></div>
+            <div class="item"><div><strong><i class="fa-solid fa-database"></i> Database Systems</strong><br><small>SQL queries, tables, and backend data handling.</small></div><span class="badge">Sem 2</span></div>
+            <div class="item"><div><strong><i class="fa-solid fa-brain"></i> LLM Portal Lab</strong><br><small>Testing dashboards, forms, and admin flows.</small></div><span class="badge">Sem 3</span></div>
+          </div>
+        </div>
+
+        <div id="enroll" class="panel">
+          <div class="controls">
+            <input id="sname" placeholder="Student Name" />
+            <select id="course"><option>Web Development</option><option>Database Systems</option><option>LLM Portal Lab</option></select>
+            <input id="sid" placeholder="Student ID" />
+            <select id="status"><option>Enrolled</option><option>Updated</option><option>Pending</option></select>
+          </div>
+          <div class="actions"><button class="btn primary" onclick="addStudent()"><i class="fa-solid fa-user-plus"></i> Add / Update</button></div>
+          <div class="enroll-list" id="enrollList"></div>
+        </div>
+
+        <div id="attendance" class="panel">
+          <div class="controls">
+            <input id="aname" placeholder="Student Name" />
+            <select id="attStatus"><option>Present</option><option>Absent</option><option>Late</option></select>
+          </div>
+          <div class="actions"><button class="btn success" onclick="markAttendance()"><i class="fa-solid fa-calendar-check"></i> Mark Attendance</button></div>
+          <div class="att-list" id="attList"></div>
+        </div>
+      </div>
+
+      <div class="card side">
+        <h3 style="margin-top:0"><i class="fa-solid fa-right-to-bracket"></i> Sign In Panel</h3>
+        <p style="color:var(--muted);line-height:1.7">Use the buttons in the sidebar to switch between admin and student roles. The dashboard updates instantly.</p>
+        <div class="item"><div><strong>Admin</strong><br><small>Manage courses, enrollments, and attendance.</small></div><i class="fa-solid fa-user-shield"></i></div>
+        <div class="item" style="margin-top:10px"><div><strong>Student</strong><br><small>View courses, enrollment, and attendance status.</small></div><i class="fa-solid fa-user-graduate"></i></div>
+        <div class="item" style="margin-top:10px"><div><strong>Logout</strong><br><small>Clear session and reset role to guest.</small></div><i class="fa-solid fa-power-off"></i></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+let role='Guest';
+const enrollList=document.getElementById('enrollList');
+const attList=document.getElementById('attList');
+function renderRole(){document.getElementById('roleLabel').textContent=role}
+function setRole(r){role=r==='admin'?'Admin':'Student';renderRole();alert(role+' signed in')}
+function logout(){role='Guest';renderRole();alert('Logged out')}
+function showPanel(id, el){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active')}
+function addStudent(){const n=document.getElementById('sname').value.trim();const c=document.getElementById('course').value;const s=document.getElementById('sid').value.trim();const st=document.getElementById('status').value;if(!n||!s)return alert('Enter student name and ID');const div=document.createElement('div');div.className='item';div.innerHTML=`<div><strong><i class="fa-solid fa-user"></i> ${n}</strong><br><small>ID: ${s} • Course: ${c} • Status: ${st}</small></div><i class="fa-solid fa-pen-to-square"></i>`;enrollList.prepend(div);document.getElementById('sname').value='';document.getElementById('sid').value='';}
+function markAttendance(){const n=document.getElementById('aname').value.trim();const st=document.getElementById('attStatus').value;if(!n)return alert('Enter student name');const div=document.createElement('div');div.className='item';div.innerHTML=`<div><strong><i class="fa-solid fa-clipboard-user"></i> ${n}</strong><br><small>Status: ${st}</small></div><span class="badge">${new Date().toLocaleDateString()}</span>`;attList.prepend(div);document.getElementById('aname').value='';}
+renderRole();
+</script>
+</body>
+</html>
